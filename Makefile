@@ -5,15 +5,12 @@ start-frontend:
 	npm run dev
 
 setup:
+	./vendor/bin/sail up -d
 	composer install
-	cp -n .env.example .env
-	php artisan key:gen --ansi
-	touch database/database.sqlite
-	php artisan migrate
-	php artisan db:seed
-	npm ci
-	npm run build
-	make ide-helper
+	cp -n .env.example .env || true
+	touch database/database.pgsql
+	./vendor/bin/sail artisan migrate
+	./vendor/bin/sail artisan db:seed
 
 watch:
 	npm run watch
@@ -37,10 +34,10 @@ deploy:
 	git push heroku
 
 lint:
-	composer phpcs
+	composer exec --verbose phpcs -- --standard=PSR12 app routes tests
 
 lint-fix:
-	composer phpcbf
+	composer exec --verbose phpcbf -- --standard=PSR12 app tests
 
 compose:
 	docker-compose up
