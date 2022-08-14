@@ -1,5 +1,5 @@
 start:
-	php artisan serve --host 0.0.0.0
+	make artisan serve --host 0.0.0.0
 
 start-frontend:
 	npm run dev
@@ -7,28 +7,32 @@ start-frontend:
 setup:
 	./vendor/bin/sail up -d
 	composer install
-	cp -n .env.example .env || true
-	touch database/database.pgsql
+	cp -n .env.example .env
+	./vendor/bin/sail artisan key:gen --ansi
+	touch database/database.sqlite
 	./vendor/bin/sail artisan migrate
 	./vendor/bin/sail artisan db:seed
+#	npm ci
+#	npm run build
+	make ide-helper
 
 watch:
 	npm run watch
 
 migrate:
-	php artisan migrate
+	./vendor/bin/sail artisan migrate
 
 console:
-	php artisan tinker
+	./vendor/bin/sail artisan tinker
 
 log:
 	tail -f storage/logs/laravel.log
 
 test:
-	php artisan test
+	./vendor/bin/sail artisan test
 
 test-coverage:
-	XDEBUG_MODE=coverage php artisan test --coverage-clover build/logs/clover.xml
+	XDEBUG_MODE=coverage ./vendor/bin/sail artisan test --coverage-clover build/logs/clover.xml
 
 deploy:
 	git push heroku
@@ -37,7 +41,7 @@ lint:
 	composer exec --verbose phpcs -- --standard=PSR12 app routes tests
 
 lint-fix:
-	composer exec --verbose phpcbf -- --standard=PSR12 app tests
+	composer exec --verbose phpcbf -- --standard=PSR12 app routes tests
 
 compose:
 	docker-compose up
@@ -61,7 +65,7 @@ compose-down:
 	docker-compose down -v
 
 ide-helper:
-	php artisan ide-helper:eloquent
-	php artisan ide-helper:gen
-	php artisan ide-helper:meta
-	php artisan ide-helper:mod -n
+	./vendor/bin/sail artisan ide-helper:eloquent
+	./vendor/bin/sail artisan ide-helper:gen
+	./vendor/bin/sail artisan ide-helper:meta
+	./vendor/bin/sail artisan ide-helper:mod -n
