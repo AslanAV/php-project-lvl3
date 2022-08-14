@@ -1,62 +1,71 @@
 # Php-project-lvl3
 
+[![github action status](https://github.com/hexlet-components/php-laravel-blog/workflows/PHP%20CI/badge.svg)](../../actions)
+[![codecov](https://codecov.io/gh/hexlet-components/php-laravel-blog/branch/main/graph/badge.svg?token=F9TUPCSZVM)](https://codecov.io/gh/hexlet-components/php-laravel-blog)
+
 ## Heroku domain
 
-[Heroku](https://php-poject-lvl3.herokuapp.com/)
+Demo: https://php-poject-lvl3.herokuapp.com/
 
+## Requirements
 
-## About Laravel
+* PHP ^7.4 || ^8.1
+* Extensions: mbstring, curl, dom, xml,zip, sqlite3
+* Composer
+* Node.js & npm
+* SQLite for local
+* [heroku cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+For Docker setup update `.env.example`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```txt
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=password
+```
 
-## Learning Laravel
+```bash
+make setup
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Run
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+make start
+```
 
-## Laravel Sponsors
+## From Scratch
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```bash
+composer create-project --prefer-dist laravel/laravel hexlet-laravel-blog
+cd hexlet-laravel-blog
+make start # Open http://localhost:8000
 
-### Premium Partners
+touch database/database.sqlite
+# update .env.example (DB_CONNECTION DB_DATABASE)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+php artisan make:model Article --migration
+# update migration (add name and body)
+php artisan migrate
+add .psysh # https://stackoverflow.com/questions/53773098/php-artisan-tinker-crashing-from-any-command
+# for reloading https://github.com/furey/tinx
+php artisan tinker
 
-## Contributing
+php artisan make:controller ArticleController --resource
+# add Route::resource('articles', 'ArticleController');
+php artisan route:list
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/assets/master/images/hexlet_logo128.png)](https://hexlet.io?utm_source=github&utm_medium=link&utm_campaign=php-laravel-blog)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet](https://hexlet.io?utm_source=github&utm_medium=link&utm_campaign=php-laravel-blog).
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+See most active contributors on [hexlet-friends](https://friends.hexlet.io/).
