@@ -5,7 +5,7 @@ start-frontend:
 	npm run dev
 
 setup:
-	docker-compose up -d
+	env UID=${UID} GID=${GID} docker-compose up -d
 	./vendor/bin/sail up -d
 	composer install
 	cp -n .env.example .env
