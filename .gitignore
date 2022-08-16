@@ -16,12 +16,39 @@ build
 .phpstorm.meta.php
 _ide_helper.php
 _ide_helper_models.php
+/public/build
 .env.backup
-docker-compose.override.yml
+auth.json
 /.idea
 /.vscode
-mix-manifest.json
-node_modules
-lib/
-logs
-.phpstorm.meta.php
+composer.phar
+composer.lock
+.DS_Store
+Thumbs.db
+/phpunit.xml
+/bootstrap/compiled.php
+.env.*.php
+.env.php
+workspace.xml
+# Created by https://www.toptal.com/developers/gitignore/api/laravel
+# Edit at https://www.toptal.com/developers/gitignore?templates=laravel
+
+### Laravel ###
+/vendor/
+node_modules/
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+public/storage
+public/hot
+
+# Laravel 5 & Lumen specific with changed public path
+public_html/storage
+public_html/hot
+
+storage/*.key
+/.vagrant
+# End of https://www.toptal.com/developers/gitignore/api/laravel
