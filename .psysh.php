@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'usePcntl' => false,
+  'usePcntl' => false,
 ];
