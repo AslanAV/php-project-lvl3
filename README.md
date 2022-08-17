@@ -1,7 +1,11 @@
 # php-laravel-blog
 
-[![github action status](https://github.com/hexlet-components/php-laravel-blog/workflows/PHP%20CI/badge.svg)](../../actions)
-[![codecov](https://codecov.io/gh/hexlet-components/php-laravel-blog/branch/main/graph/badge.svg?token=F9TUPCSZVM)](https://codecov.io/gh/hexlet-components/php-laravel-blog)
+
+[![hexlet-check](https://github.com/AslanAV/php-project-lvl3/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AslanAV/php-project-lvl3/actions/workflows/hexlet-check.yml)
+[![PHP CI](https://github.com/AslanAV/php-project-lvl3/actions/workflows/phpci.yaml/badge.svg)](https://github.com/AslanAV/php-project-lvl3/actions/workflows/phpci.yaml)
+[![codecov](https://codecov.io/gh/AslanAV/php-project-lvl3/branch/main/graph/badge.svg?token=XUJ0ZB7F3L)](https://codecov.io/gh/AslanAV/php-project-lvl3)
+[![Maintainability](https://api.codeclimate.com/v1/badges/af531ceac8775cb767fb/maintainability)](https://codeclimate.com/github/AslanAV/php-project-lvl3/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/af531ceac8775cb767fb/test_coverage)](https://codeclimate.com/github/AslanAV/php-project-lvl3/test_coverage)
 
 Demo: https://php-laravel-blog.hexlet.app/
 
