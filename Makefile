@@ -3,12 +3,14 @@ start:
 
 setup:
 	composer install
-	cp -n .env.example .env|| true
+	cp -n .env.example .env
 	php artisan key:gen --ansi
 	touch database/database.sqlite
 	php artisan migrate
 	php artisan db:seed
-	make ci
+	npm ci
+	npm run build
+	make ide-helper
 
 watch:
 	npm run watch
@@ -35,7 +37,7 @@ lint-fix:
 	composer phpcbf
 
 test-coverage:
-	composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
+	XDEBUG_MODE=coverage php artisan test --coverage-clover build/logs/clover.xml
 
 install:
 	composer install
@@ -48,3 +50,30 @@ ci:
 
 build-front:
 	npm run build
+
+compose:
+	docker-compose up
+
+compose-test:
+	docker-compose run web make test
+
+compose-bash:
+	docker-compose run web bash
+
+compose-setup: compose-build
+	docker-compose run web make setup
+
+compose-build:
+	docker-compose build
+
+compose-db:
+	docker-compose exec db psql -U postgres
+
+compose-down:
+	docker-compose down -v
+
+ide-helper:
+	php artisan ide-helper:eloquent
+	php artisan ide-helper:gen
+	php artisan ide-helper:meta
+	php artisan ide-helper:mod -n
