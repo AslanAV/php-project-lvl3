@@ -8,7 +8,7 @@ setup:
 	touch database/database.sqlite
 	php artisan migrate
 	php artisan db:seed
-	npm ci
+	make ci
 
 watch:
 	npm run watch
@@ -42,3 +42,9 @@ install:
 
 validate:
 	composer validate
+
+ci:
+	npm ci
+
+build-front:
+	npm run build

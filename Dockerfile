@@ -1,4 +1,4 @@
-FROM php:8.1-cli
+FROM php:8.0-cli
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
@@ -16,9 +16,13 @@ RUN apt-get install -y nodejs
 WORKDIR /app
 
 COPY . .
-RUN composer install
-RUN npm ci
-RUN npm run dev
+RUN npm install -g npm@8.18.0
+RUN composer update
+RUN npm update
+RUN npm i vite
+RUN npm i laravel-vite-plugin
+RUN make install
+RUN make build-front
 
 RUN > database/database.sqlite
 
