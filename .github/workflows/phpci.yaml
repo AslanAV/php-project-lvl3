@@ -23,6 +23,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          tools: phpcs
 
       - name: PHP Security Checker
         uses: StephaneBour/actions-php-security-checker@1.1
