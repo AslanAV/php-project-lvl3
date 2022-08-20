@@ -19,6 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Copy .env
+        run: copy('.env.testing', '.env');"
+
       - name: Set up PHP ${{ matrix.php-versions }}
         uses: shivammathur/setup-php@v2
         with:

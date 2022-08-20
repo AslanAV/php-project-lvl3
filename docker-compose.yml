@@ -7,17 +7,24 @@ services:
     db:
         image: postgres:14.4-bullseye
         environment:
-            POSTGRES_PASSWORD: password
+            POSTGRES_PASSWORD: lvl3
+            POSTGRES_USER: project
+            POSTGRES_DB: projectlvl3
         volumes:
-            - pgdata:/var/lib/postgresql/data
+            - db-data:/var/lib/postgresql
+        ports:
+            - "127.0.0.1:5123:5432"
+        networks:
+            - backend
 
     web:
+        restart: always
         build:
             context: .
         command: make start
         ports:
             - "8000:8000"
-        # env_file: '.env'
+        env_file: '.env.example'
         volumes:
             # - "web_static:/web/priv/static"
             - ".:/app"
@@ -26,10 +33,14 @@ services:
             - "/tmp:/tmp"
         depends_on:
             - db
+        networks:
+            - backend
 
 volumes:
-    pgdata:
+    db-data:
     # web_node_modules:
     # web_static:
     # app_build:
     # app_deps:
+networks:
+    backend:
