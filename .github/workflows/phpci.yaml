@@ -1,4 +1,4 @@
-name: PHP CI
+name: PHP CI & HEROKU DEPLOY
 
 on:
   push:
