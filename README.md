@@ -19,6 +19,12 @@ Demo: https://php-project-lvl-3.herokuapp.com/
 
 ## Setup
 
+For setup update `.env.example`
+```bash
+make setup
+```
+
+## Setup with Docker
 For Docker setup update `.env.example`
 
 ```bash
