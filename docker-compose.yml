@@ -24,6 +24,7 @@ services:
         command: make start
         ports:
             - "8000:8000"
+            - "5137:5137"
         env_file: '.env.example'
         volumes:
             # - "web_static:/web/priv/static"
