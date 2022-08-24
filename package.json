@@ -4,8 +4,7 @@
         "dev": "vite",
         "build": "vite build",
         "development": "npm run build",
-        "heroku-postbuild": "npm run build",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "heroku-postbuild": "npm run build"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.18.6",
