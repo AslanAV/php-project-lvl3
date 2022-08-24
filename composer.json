@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "8.0.21",
+        "php": "8.0.22",
         "guzzlehttp/guzzle": "^7.4.5",
         "imangazaliev/didom": "^2.0.0",
         "laracasts/flash": "^3.2.1",
