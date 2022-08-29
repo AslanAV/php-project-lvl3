@@ -16,7 +16,6 @@ class UrlController extends Controller
     public function index(): Factory|View|Application
     {
         $urls = DB::table('urls')->orderBy('id')->paginate(15);
-//        dd($urls);
         return view('urls.index', compact('urls'));
     }
     public function store(StoreUrlRequest $request): RedirectResponse
