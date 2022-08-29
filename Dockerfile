@@ -10,6 +10,11 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
+RUN pecl install xdebug-3.1.5 \
+    && docker-php-ext-enable \
+        xdebug \
+    && rm -rf /tmp/pear
+
 RUN apt-get update && apt-get install -y unzip
 
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
@@ -21,8 +26,7 @@ COPY . .
 RUN npm install -g npm@8.18.0
 RUN composer update
 RUN npm update
-RUN npm i vite
-RUN npm i laravel-vite-plugin
+RUN npm i vite && npm i laravel-vite-plugin
 RUN make install
 RUN make build-front
 
