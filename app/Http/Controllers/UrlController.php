@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreUrlRequest;
+use App\Models\Url;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class UrlController extends Controller
+{
+    public function index(): Factory|View|Application
+    {
+        $urls = DB::table('urls')->orderBy('id')->paginate(15);
+//        dd($urls);
+        return view('urls.index', compact('urls'));
+    }
+    public function store(StoreUrlRequest $request): RedirectResponse
+    {
+        $id = DB::table('urls')->insertGetId([
+            'name' =>$request->get('name'),
+        ]);
+
+        return redirect()
+            ->route('url.show', $id)
+            ->with('success', 'Страница успешно добавлена');
+//            ->with('success', 'Страница уже существует');
+    }
+
+    public function show($id): View
+    {
+        $url = DB::table('urls')->find($id);
+
+        if (!$url) {
+            abort(404);
+        }
+        return view('urls.show', compact('url'));
+    }
+
+
+}

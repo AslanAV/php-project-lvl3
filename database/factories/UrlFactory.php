@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Url;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\urls>
+ * @extends Factory<Url>
  */
-class UrlsFactory extends Factory
+class UrlFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +18,8 @@ class UrlsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->url(),
+            'created_at' => now(),
         ];
     }
 }
