@@ -20,13 +20,12 @@ class UrlController extends Controller
         return view('urls.index', compact('urls'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUrlRequest $request): RedirectResponse
     {
         $validated = \Validator::make($request->all(), [
             'url.name' => 'required|unique:urls,name|max:255',
         ]);
         $nameUrl = $validated->getData()['url']['name'];
-//        dd($nameUrl);
         $now = Carbon::now();
         $id = DB::table('urls')->insertGetId([
             'name' => $nameUrl,

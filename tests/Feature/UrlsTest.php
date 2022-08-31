@@ -40,7 +40,7 @@ class UrlsTest extends TestCase
     {
         $response = $this->post('/urls', $this->body);
         $response->assertRedirect()->assertStatus(302);
-
+        $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('urls', $this->body['url']);
     }
 }
