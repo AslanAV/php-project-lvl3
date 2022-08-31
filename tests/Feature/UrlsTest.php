@@ -2,14 +2,18 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\Url;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class UrlsTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase; use WithoutMiddleware;
+
+    private array $body = [
+        'url' => ['name' => 'https://www.example.com'],
+    ];
 
     public function testMainPage(): void
     {
@@ -25,16 +29,18 @@ class UrlsTest extends TestCase
         $response->assertOk();
     }
 
-//    public function testAddUrlSuccess(): void
-//    {
-//        $body = [
-//          'name' => 'http://www.example.com'
-//        ];
-//
-//        $response = $this->post('urls.store', $body);
-//
-//        $response->assertRedirect();
-//
-//        $this->assertDatabaseHas('posts', $body);
-//    }
+    public function testPageForUrl(): void
+    {
+        $response = $this->post('/urls', $this->body);
+        $newResponse = $this->get('/urls/1');
+        $newResponse->assertOk();
+    }
+
+    public function testAddUrlSuccess(): void
+    {
+        $response = $this->post('/urls', $this->body);
+        $response->assertRedirect()->assertStatus(302);
+
+        $this->assertDatabaseHas('urls', $this->body['url']);
+    }
 }
