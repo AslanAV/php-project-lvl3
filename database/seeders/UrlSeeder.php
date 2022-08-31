@@ -35,7 +35,7 @@ class UrlSeeder extends Seeder
         ];
 
         foreach ($tableUrls as $key => $url) {
-            DB::table('urls')->insert([
+            DB::table('urls')->insertGetId([
                 'name' => $url,
                 'created_at' => Carbon::now(),
             ]);
