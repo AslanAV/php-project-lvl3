@@ -8,12 +8,16 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UrlController extends Controller
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(): Factory|View|Application
     {
         $urls = DB::table('urls')->orderBy('id')->paginate(15);
@@ -26,6 +30,7 @@ class UrlController extends Controller
             'url.name' => 'required|unique:urls,name|max:255',
         ]);
         $nameUrl = $validated->getData()['url']['name'];
+
         $now = Carbon::now();
         $id = DB::table('urls')->insertGetId([
             'name' => $nameUrl,
