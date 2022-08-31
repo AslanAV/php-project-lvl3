@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Url;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +23,6 @@ class UrlSeeder extends Seeder
             'https://example.com',
             'https://symfony.com',
             'https://ubuntu.com/',
-            'https://ubuntu.com/',
             'https://www.spacex.com',
             'https://hubblesite.org',
             'https://www.nasa.gov',
@@ -38,9 +36,8 @@ class UrlSeeder extends Seeder
 
         foreach ($tableUrls as $key => $url) {
             DB::table('urls')->insert([
-                'id' => $key + 1,
                 'name' => $url,
-                'created_at' => now(),
+                'created_at' => Carbon::now(),
             ]);
         }
     }

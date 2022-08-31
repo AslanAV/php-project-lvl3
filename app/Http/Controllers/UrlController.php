@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUrlRequest;
 use App\Models\Url;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,15 +19,23 @@ class UrlController extends Controller
         $urls = DB::table('urls')->orderBy('id')->paginate(15);
         return view('urls.index', compact('urls'));
     }
-    public function store(StoreUrlRequest $request): RedirectResponse
+
+    public function store(Request $request): RedirectResponse
     {
+        $validated = \Validator::make($request->all(), [
+            'url.name' => 'required|unique:urls,name|max:255',
+        ]);
+        $nameUrl = $validated->getData()['url']['name'];
+//        dd($nameUrl);
+        $now = Carbon::now();
         $id = DB::table('urls')->insertGetId([
-            'name' =>$request->get('name'),
+            'name' => $nameUrl,
+            'created_at' => $now,
         ]);
 
+        flash('Страница успешно добавлена')->success();
         return redirect()
-            ->route('url.show', $id)
-            ->with('success', 'Страница успешно добавлена');
+            ->route('urls.show', $id);
 //            ->with('success', 'Страница уже существует');
     }
 

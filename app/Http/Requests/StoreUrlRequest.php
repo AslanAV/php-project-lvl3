@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreUrlRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreUrlRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class StoreUrlRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:name|max:255'
+            'url.name' => 'required|unique:urls,name|max:255',
         ];
     }
 }
