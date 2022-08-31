@@ -1,31 +1,29 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="container-lg">
+    <div class="table-responsive">
         <h1 class="mt-5 mb-3">Сайты</h1>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover text-nowrap"
-                       style="line-height: 18px;">
-                <thead style="font-weight: bold;">
+        <table class="table table-bordered table-hover text-nowrap"
+               style="line-height: 18px;">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Последняя проверка</th>
+                <th>Код ответа</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($urls as $url)
                 <tr>
-                    <td>ID</td>
-                    <td>Имя</td>
-                    <td>Последняя проверка</td>
-                    <td>Код ответа</td>
+                    <td>{{$url->id}}</td>
+                    <td><a href="{{ route('urls.show', $url->id) }}">{{$url->name}}</a></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                </thead>
-                <tbody>
-                @foreach($urls as $url)
-                    <tr>
-                        <td>{{$url->id}}</td>
-                        <td>{{$url->name}}</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-    {{ $urls->links() }}
-</div>
-</div>
+            @endforeach
+            </tbody>
+        </table>
+        {{ $urls->links() }}
+    </div>
 @endsection

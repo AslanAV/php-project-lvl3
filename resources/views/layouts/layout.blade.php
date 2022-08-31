@@ -12,7 +12,8 @@
 <header class="flex-shrink-0">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="{{route("home")}}">Анализатор страниц</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -21,24 +22,27 @@
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{route("home")}}">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('urls.index') ? 'active' : '' }}" href="{{route('urls.index')}}">Сайты</a>
+                    <a class="nav-link {{ request()->routeIs('urls.index') ? 'active' : '' }}"
+                       href="{{route('urls.index')}}">Сайты</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
 <main class="flex-grow-1">
-@yield('content')
+    @include('flash::message')
+    <div class="container-lg">
+        @yield('content')
+    </div>
 </main>
 
 <footer class="border-top py-3 mt-5 flex-shrink-0">
     <div class="container-lg">
         <div class="text-center">
-            <a href="https://hexlet.io/pages/about" target="_blank">Hexlet</a>
+            <a href="https://github.com/AslanAV" target="_blank">Aslan Autlev</a>
         </div>
     </div>
 </footer>
-
-
+@extends('layouts.scripts')
 </body>
 </html>
