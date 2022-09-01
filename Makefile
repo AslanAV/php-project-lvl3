@@ -6,7 +6,7 @@ setup:
 	cp -n .env.example .env
 	php artisan key:gen --ansi
 	touch database/database.sqlite
-	php artisan migrate
+	php artisan migrate:refresh
 	php artisan db:seed
 	npm i --package-lock-only
 	npm ci
@@ -62,6 +62,9 @@ compose-bash:
 	docker-compose run web bash
 
 compose-setup: compose-build
+	docker-compose run web make setup
+
+compose-make-setup:
 	docker-compose run web make setup
 
 compose-build:

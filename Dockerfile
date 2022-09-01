@@ -1,5 +1,10 @@
 FROM php:8.0.22-cli
 
+ARG WWWGROUP
+ARG WWWUSER
+ARG GUID
+ARG UID
+
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev

@@ -21,6 +21,11 @@ services:
         restart: always
         build:
             context: .
+            args:
+                WWWGROUP: aslan
+                WWWUSER: aslan
+                UID: 1000
+                GID: 1000
         command: make start
         ports:
             - "8000:8000"
