@@ -28,7 +28,7 @@ class UrlController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = Validator::make($request->all(), [
-            'url.name' => 'required|max:255',
+            'url.name' => 'url|required|max:255',
         ]);
         if ($validated->fails()) {
             flash('Некорректный URL')->error();
@@ -36,9 +36,10 @@ class UrlController extends Controller
         }
 
         $nameUrl = $validated->getData()['url']['name'];
+        $normalizeUrl = $this->normalizeUrl($nameUrl);
         $now = Carbon::now();
 
-        $tryGetId = $this->hasId($nameUrl);
+        $tryGetId = $this->hasId($normalizeUrl);
         if ($tryGetId) {
             flash('Страница уже существует')->success();
             return redirect()->route('urls.show', $tryGetId);
@@ -46,17 +47,12 @@ class UrlController extends Controller
 
 
         $id = DB::table('urls')->insertGetId([
-            'name' => $nameUrl,
+            'name' => $normalizeUrl,
             'created_at' => $now,
         ]);
         flash('Страница успешно добавлена')->success();
         return redirect()
             ->route('urls.show', $id);
-    }
-
-    private function hasId($name)
-    {
-        return DB::table('urls')->where('name', $name)->value('id');
     }
 
     public function show($id): View
@@ -69,5 +65,20 @@ class UrlController extends Controller
         return view('urls.show', compact('url'));
     }
 
+    private function hasId($name)
+    {
+        return DB::table('urls')->where('name', $name)->value('id');
+    }
+
+    private function normalizeUrl(string $nameUrl): string
+    {
+        $nameUrl = strtolower($nameUrl);
+
+        $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
+        $host = parse_url($nameUrl, PHP_URL_HOST);
+
+        return "{$scheme}://{$host}";
+
+    }
 
 }
