@@ -16,12 +16,17 @@ use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function index(): Factory|View|Application
+    public function index(): View
     {
         $urls = DB::table('urls')->orderBy('id')->paginate(10);
-        return view('urls.index', compact('urls'));
+        $checksData = DB::table('url_checks')
+            ->orderBy('url_id')
+            ->latest()
+            ->distinct('url_id')
+            ->get()
+            ->keyBy('url_id');
+        $checksUrl = $checksData->all();
+        return view('urls.index', compact('urls', 'checksUrl'));
     }
 
 
@@ -37,7 +42,6 @@ class UrlController extends Controller
 
         $nameUrl = $validated->getData()['url']['name'];
         $normalizeUrl = $this->normalizeUrl($nameUrl);
-        $now = Carbon::now();
 
         $tryGetId = $this->hasId($normalizeUrl);
         if ($tryGetId) {
@@ -48,7 +52,7 @@ class UrlController extends Controller
 
         $id = DB::table('urls')->insertGetId([
             'name' => $normalizeUrl,
-            'created_at' => $now,
+            'created_at' => Carbon::now(),
         ]);
         flash('Страница успешно добавлена')->success();
         return redirect()
@@ -58,11 +62,17 @@ class UrlController extends Controller
     public function show($id): View
     {
         $url = DB::table('urls')->find($id);
-
         if (!$url) {
             abort(404);
         }
-        return view('urls.show', compact('url'));
+        $checksUrl = DB::table('url_checks')
+            ->where('url_id', $id)
+            ->orderByDesc('created_at')
+            ->get();
+        if (!$checksUrl) {
+            abort(404);
+        }
+        return view('urls.show', compact('url', 'checksUrl'));
     }
 
     private function hasId($name)
@@ -73,12 +83,10 @@ class UrlController extends Controller
     private function normalizeUrl(string $nameUrl): string
     {
         $nameUrl = strtolower($nameUrl);
-
         $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
         $host = parse_url($nameUrl, PHP_URL_HOST);
 
         return "{$scheme}://{$host}";
-
     }
 
 }
