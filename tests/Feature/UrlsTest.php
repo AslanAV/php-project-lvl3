@@ -22,14 +22,14 @@ class UrlsTest extends TestCase
         $response->assertOk();
     }
 
-    public function testPageUrls(): void
+    public function testIndexPage(): void
     {
         $response = $this->get('/urls');
 
         $response->assertOk();
     }
 
-    public function testPageForUrl(): void
+    public function testShowPage(): void
     {
         $response = $this->post('/urls', $this->body);
         $newResponse = $this->get('/urls/1');
