@@ -21,7 +21,7 @@
         </table>
     </div>
     <h2 class="mt-5 mb-3">Проверки</h2>
-    <form method="post" action="https://php-page-analyzer-ru.hexlet.app/urls/{{$url->id}}/checks">
+    <form method="post" action="/urls/{{ $url->id }}/checks">
         @csrf
         <input type="submit" class="btn btn-primary" value="Запустить проверку">
     </form>
@@ -35,14 +35,18 @@
             <th>description</th>
             <th>Дата создания</th>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+            @if($checksUrl)
+                @foreach($checksUrl as $checkUrl)
+                   <tr>
+                       <td>{{$checkUrl->id}}</td>
+                       <td>{{$checkUrl->status_code}}</td>
+                       <td>{{$checkUrl->h1}}</td>
+                       <td>{{$checkUrl->title}}</td>
+                       <td>{{$checkUrl->description}}</td>
+                       <td>{{$checkUrl->created_at}}</td>
+                   </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 @endsection
