@@ -3,12 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,13 +60,15 @@ class UrlController extends Controller
         if (!$url) {
             abort(404);
         }
+
         $checksUrl = DB::table('url_checks')
             ->where('url_id', $id)
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(3);
         if (!$checksUrl) {
             abort(404);
         }
+
         return view('urls.show', compact('url', 'checksUrl'));
     }
 
@@ -83,6 +80,7 @@ class UrlController extends Controller
     private function normalizeUrl(string $nameUrl): string
     {
         $nameUrl = strtolower($nameUrl);
+
         $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
         $host = parse_url($nameUrl, PHP_URL_HOST);
 
