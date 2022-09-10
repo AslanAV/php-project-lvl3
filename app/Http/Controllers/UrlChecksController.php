@@ -37,7 +37,7 @@ class UrlChecksController extends Controller
         return redirect()->route('urls.show', $id);
     }
 
-    private function getUrlName($id): string
+    private function getUrlName(int $id): string
     {
         $url = DB::table('urls')->find($id);
         if (!$url) {
@@ -56,11 +56,11 @@ class UrlChecksController extends Controller
         try {
             $document = new Document($response->body());
             if ($document->has('h1')) {
-                $h1 = $document->find('h1')[0]->text();
+                $h1 = optional($document->find('h1')[0])->text();
             }
 
             if ($document->has('title')) {
-                $title = $document->find('title')[0]->text();
+                $title = optional($document->find('title')[0])->text();
             }
 
             if ($document->has('meta[name=description]')) {
