@@ -64,7 +64,7 @@ class UrlController extends Controller
         return "{$scheme}://{$host}";
     }
 
-    private function hasId($name)
+    private function hasId(string $name): int
     {
         return DB::table('urls')->where('name', $name)->value('id');
     }
@@ -80,9 +80,6 @@ class UrlController extends Controller
             ->where('url_id', $id)
             ->orderByDesc('created_at')
             ->paginate(3);
-        if (!$checksUrl) {
-            abort(404);
-        }
 
         return view('urls.show', compact('url', 'checksUrl'));
     }
