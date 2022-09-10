@@ -39,6 +39,7 @@ class UrlController extends Controller
         $normalizeUrl = $this->normalizeUrl($nameUrl);
 
         $tryGetId = $this->hasId($normalizeUrl);
+
         if ($tryGetId) {
             flash('Страница уже существует')->success();
             return redirect()->route('urls.show', $tryGetId);
@@ -64,7 +65,7 @@ class UrlController extends Controller
         return "{$scheme}://{$host}";
     }
 
-    private function hasId(string $name): int
+    private function hasId(string $name): int|null
     {
         return DB::table('urls')->where('name', $name)->value('id');
     }
