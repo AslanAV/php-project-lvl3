@@ -54,6 +54,21 @@ class UrlController extends Controller
             ->route('urls.show', $id);
     }
 
+    private function normalizeUrl(string $nameUrl): string
+    {
+        $nameUrl = strtolower($nameUrl);
+
+        $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
+        $host = parse_url($nameUrl, PHP_URL_HOST);
+
+        return "{$scheme}://{$host}";
+    }
+
+    private function hasId($name)
+    {
+        return DB::table('urls')->where('name', $name)->value('id');
+    }
+
     public function show($id): View
     {
         $url = DB::table('urls')->find($id);
@@ -72,19 +87,5 @@ class UrlController extends Controller
         return view('urls.show', compact('url', 'checksUrl'));
     }
 
-    private function hasId($name)
-    {
-        return DB::table('urls')->where('name', $name)->value('id');
-    }
-
-    private function normalizeUrl(string $nameUrl): string
-    {
-        $nameUrl = strtolower($nameUrl);
-
-        $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
-        $host = parse_url($nameUrl, PHP_URL_HOST);
-
-        return "{$scheme}://{$host}";
-    }
-
 }
+

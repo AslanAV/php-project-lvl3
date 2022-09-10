@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class UrlsTest extends TestCase
 {
-    use RefreshDatabase; use WithoutMiddleware;
+    use RefreshDatabase;
+    use WithoutMiddleware;
 
     private array $body = [
         'url' => ['name' => 'https://www.example.com'],

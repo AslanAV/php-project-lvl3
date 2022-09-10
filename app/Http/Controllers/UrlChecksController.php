@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use DiDom\Document;
-
 use DiDom\Exceptions\InvalidSelectorException;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -38,6 +37,15 @@ class UrlChecksController extends Controller
         return redirect()->route('urls.show', $id);
     }
 
+    private function getUrlName($id): string
+    {
+        $url = DB::table('urls')->find($id);
+        if (!$url) {
+            abort(404);
+        }
+
+        return $url->name;
+    }
 
     private function getDocumentElement($response): array
     {
@@ -61,19 +69,7 @@ class UrlChecksController extends Controller
                     ->getAttribute('content');
             }
         } catch (InvalidSelectorException) {
-
         }
-
         return ['h1' => $h1, 'title' => $title, 'description' => $description];
-    }
-
-    private function getUrlName($id): string
-    {
-        $url = DB::table('urls')->find($id);
-        if (!$url) {
-            abort(404);
-        }
-
-        return $url->name;
     }
 }
