@@ -46,7 +46,7 @@ class UrlChecksController extends Controller
         return $url->name;
     }
 
-    private function getDocumentElement($response): array
+    private function getDocumentElement(object $response): array
     {
         $h1 = '';
         $title = '';

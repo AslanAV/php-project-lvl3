@@ -69,7 +69,7 @@ class UrlController extends Controller
         return DB::table('urls')->where('name', $name)->value('id');
     }
 
-    public function show($id): View
+    public function show(int $id): View
     {
         $url = DB::table('urls')->find($id);
         if (!$url) {
