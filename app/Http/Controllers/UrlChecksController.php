@@ -14,7 +14,6 @@ class UrlChecksController extends Controller
 {
     public function store(int $id): RedirectResponse
     {
-        $now = Carbon::now();
         try {
             $url = $this->getUrlName($id);
             $response = Http::get($url);
@@ -26,7 +25,7 @@ class UrlChecksController extends Controller
                 'h1' => $document['h1'],
                 'title' => $document['title'],
                 'description' => $document['description'],
-                'created_at' => $now,
+                'created_at' => Carbon::now(),
             ];
             DB::table('url_checks')->insert($checkData);
 
