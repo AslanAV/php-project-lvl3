@@ -35,7 +35,7 @@ class UrlController extends Controller
             return redirect()->route('home')->withErrors($validated);
         }
 
-        $nameUrl = $validated->getData()['url']['name'];
+        $nameUrl = $request['url.name'];
         $normalizeUrl = $this->normalizeUrl($nameUrl);
 
         $tryGetId = $this->hasId($normalizeUrl);

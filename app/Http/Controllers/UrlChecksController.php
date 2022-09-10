@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use DiDom\Document;
-use DiDom\Exceptions\InvalidSelectorException;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +16,14 @@ class UrlChecksController extends Controller
         try {
             $url = $this->getUrlName($id);
             $response = Http::get($url);
-            $document = $this->getDocumentElement($response);
+            $document = new Document($response->body());
 
             $checkData = [
                 'url_id' => $id,
                 'status_code' => $response->status(),
-                'h1' => $document['h1'],
-                'title' => $document['title'],
-                'description' => $document['description'],
+                'h1' => optional($document->find('h1')[0])->text(),
+                'title' => optional($document->find('title')[0])->text(),
+                'description' => $document->find('meta[name=description]')[0]->getAttribute('content'),
                 'created_at' => Carbon::now(),
             ];
             DB::table('url_checks')->insert($checkData);
@@ -44,31 +43,5 @@ class UrlChecksController extends Controller
         }
 
         return $url->name;
-    }
-
-    private function getDocumentElement(object $response): array
-    {
-        $h1 = '';
-        $title = '';
-        $description = '';
-
-        try {
-            $document = new Document($response->body());
-            if ($document->has('h1')) {
-                $h1 = optional($document->find('h1')[0])->text();
-            }
-
-            if ($document->has('title')) {
-                $title = optional($document->find('title')[0])->text();
-            }
-
-            if ($document->has('meta[name=description]')) {
-                $description = $document
-                    ->find('meta[name=description]')[0]
-                    ->getAttribute('content');
-            }
-        } catch (InvalidSelectorException) {
-        }
-        return ['h1' => $h1, 'title' => $title, 'description' => $description];
     }
 }
