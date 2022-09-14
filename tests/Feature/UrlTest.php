@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Testing\TestResponse;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class UrlTest extends TestCase
@@ -24,7 +24,10 @@ class UrlTest extends TestCase
 
     public function testShowPage(): void
     {
-        $response = $this->post(route('urls.store'), $this->body);
+        DB::table('urls')->insert([
+            'name' => $this->body['url']['name'],
+            'created_at' => Carbon::now(),
+        ]);
         $newResponse = $this->get('/urls/1');
         $newResponse->assertOk();
     }
