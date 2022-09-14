@@ -11,12 +11,11 @@ Demo: https://php-project-lvl-3.herokuapp.com/
 
 ## Requirements
 
-* PHP 8.0
-* Extensions: guzzle, curl, didom, xml, bootstrap, sqlite3
-* Composer
+* PHP 8.1
+* Extensions: guzzle, curl, didom, xml, ui-bootstrap, sqlite3
+* Composer 2.3.10
 * Node.js & npm
 * SQLite for local
-* [heroku cli](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 
 ## Setup
 
