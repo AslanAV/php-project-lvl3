@@ -7,10 +7,9 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
-class UrlsTest extends TestCase
+class UrlTest extends TestCase
 {
     use RefreshDatabase;
-    use WithoutMiddleware;
 
     private array $body = [
         'url' => ['name' => 'https://www.example.com'],

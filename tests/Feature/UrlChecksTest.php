@@ -11,7 +11,6 @@ use Tests\TestCase;
 class UrlChecksTest extends TestCase
 {
     use RefreshDatabase;
-    use WithoutMiddleware;
 
     private array $body = [
         'url' => ['name' => 'https://www.azsgnk.ru'],
