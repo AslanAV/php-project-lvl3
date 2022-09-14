@@ -32,7 +32,7 @@ class UrlController extends Controller
         ]);
         if ($validated->fails()) {
             flash('Некорректный URL')->error();
-            return redirect()->route('home')->withErrors($validated);
+            return redirect()->route('main')->withErrors($validated);
         }
 
         $nameUrl = $request['url.name'];

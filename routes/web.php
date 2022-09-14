@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'main')->name('home');
+Route::view('/', 'main')->name('main');
 Route::resource('urls', UrlController::class)->only('show', 'index', 'store');
 Route::resource('urls.checks', UrlChecksController::class)->only('store');

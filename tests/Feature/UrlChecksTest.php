@@ -26,7 +26,7 @@ class UrlChecksTest extends TestCase
             )
         ]);
 
-        $response = $this->post('/urls', $this->body);
+        $response = $this->post(route('urls.store'), $this->body);
         $response->assertRedirect()->assertStatus(302);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('urls', $this->body['url']);
@@ -41,7 +41,7 @@ class UrlChecksTest extends TestCase
             'created_at' => Carbon::now(),
         ];
 
-        $checkResponse = $this->post('urls/1/checks', [$id]);
+        $checkResponse = $this->post(route('urls.checks.store', [$id]));
         $checkResponse->assertRedirect()->assertStatus(302);
         $checkResponse->assertSessionHasNoErrors();
         $this->assertDatabaseHas('url_checks', $checkData);
