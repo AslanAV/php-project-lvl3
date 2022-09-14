@@ -8,7 +8,6 @@ setup:
 	touch database/database.sqlite
 	php artisan migrate:refresh
 	php artisan db:seed
-	npm i --package-lock-only
 	npm ci
 	npm run build
 	make ide-helper
