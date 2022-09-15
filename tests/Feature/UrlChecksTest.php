@@ -12,9 +12,17 @@ class UrlChecksTest extends TestCase
 {
     use RefreshDatabase;
 
-    private string $url = 'https://www.azsgnk.ru';
+    private string $url = '';
 
-    private string $html = '<meta name="description" content="description"><title>title</title><h1>h1</h1>';
+    private string $html = '';
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $pathToHtml = realpath(__DIR__ . '/../Fixtures/index.html');
+        $this->html = file_get_contents(realpath($pathToHtml));
+        $this->url = 'https://www.azsgnk.ru';
+    }
 
     public function testCheckUrlSuccess(): void
     {
