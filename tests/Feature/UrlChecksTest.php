@@ -21,11 +21,11 @@ class UrlChecksTest extends TestCase
     {
         parent::setUp();
         $path = __DIR__ . '/../Fixtures/index.html';
-        $pathToHtml = realpath($path);
-        if ($pathToHtml === false) {
+        $content = file_get_contents($path);
+        if ($content === false) {
             throw new Exception("file path: {$path} - is incorrect");
         }
-        $this->html = file_get_contents($pathToHtml);
+        $this->html = $content;
         $this->url = 'https://www.azsgnk.ru';
     }
 
