@@ -25,7 +25,7 @@ class UrlChecksTest extends TestCase
         if ($pathToHtml === false) {
             throw new Exception("file path: {$path} - is incorrect");
         }
-        $this->html = file_get_contents(realpath($pathToHtml));
+        $this->html = file_get_contents($pathToHtml);
         $this->url = 'https://www.azsgnk.ru';
     }
 
