@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -19,7 +20,11 @@ class UrlChecksTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $pathToHtml = realpath(__DIR__ . '/../Fixtures/index.html');
+        $path = __DIR__ . '/../Fixtures/index.html';
+        $pathToHtml = realpath($path);
+        if ($pathToHtml === false) {
+            throw new Exception("file path: {$path} - is incorrect");
+        }
         $this->html = file_get_contents(realpath($pathToHtml));
         $this->url = 'https://www.azsgnk.ru';
     }
