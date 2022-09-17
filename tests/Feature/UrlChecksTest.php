@@ -11,8 +11,6 @@ use Tests\TestCase;
 
 class UrlChecksTest extends TestCase
 {
-    use RefreshDatabase;
-
     private string $url = '';
     private array $id = [];
 

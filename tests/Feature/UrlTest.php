@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class UrlTest extends TestCase
 {
-    use RefreshDatabase;
-
     private array $body;
     private array $id;
     private array $data;
