@@ -32,7 +32,7 @@ class UrlTest extends TestCase
         $newResponse->assertOk();
     }
 
-    public function testAddUrlSuccess(): void
+    public function testStore(): void
     {
         $response = $this->post(route('urls.store'), $this->body);
         $response->assertRedirect()->assertStatus(302);
