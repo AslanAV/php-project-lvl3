@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -39,7 +38,7 @@ class UrlChecksTest extends TestCase
             $this->url => Http::response($html, 200)
         ]);
 
-        $id =head($this->id);
+        $id = head($this->id);
         $checkData = [
             'url_id' => $id,
             'status_code' => 200,
