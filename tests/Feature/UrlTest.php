@@ -8,14 +8,13 @@ use Tests\TestCase;
 
 class UrlTest extends TestCase
 {
-    private array $body;
+    private array $body = ['url' => ['name' => 'https://www.example.com']];
     private int $id;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->body = ['url' => ['name' => 'https://www.example.com']];
         $data = [
             'name' => $this->body['url']['name'],
             'created_at' => Carbon::now(),
