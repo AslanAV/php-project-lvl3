@@ -11,19 +11,19 @@ use Tests\TestCase;
 class UrlChecksTest extends TestCase
 {
     private string $url = '';
-    private array $id = [];
+    private int $id;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->url = 'https://www.azsgnk.ru';
-
-        $id = DB::table('urls')->insertGetId([
+        $data = [
             'name' => $this->url,
             'created_at' => Carbon::now(),
-        ]);
-        $this->id = [$id];
+        ];
+
+        $this->id = DB::table('urls')->insertGetId($data);
     }
 
     public function testStore(): void
@@ -38,9 +38,8 @@ class UrlChecksTest extends TestCase
             $this->url => Http::response($html, 200)
         ]);
 
-        $id = head($this->id);
         $checkData = [
-            'url_id' => $id,
+            'url_id' => $this->id,
             'status_code' => 200,
             'h1' => 'h1',
             'title' => 'title',
