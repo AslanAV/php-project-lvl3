@@ -9,20 +9,19 @@ use Tests\TestCase;
 class UrlTest extends TestCase
 {
     private array $body;
-    private array $id;
-    private array $data;
+    private int $id;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->body = ['url' => ['name' => 'https://www.example.com']];
-        $this->data = [
+        $data = [
             'name' => $this->body['url']['name'],
             'created_at' => Carbon::now(),
         ];
-        $id = DB::table('urls')->insertGetId($this->data);
-        $this->id = ['url' => $id];
+
+        $this->id = DB::table('urls')->insertGetId($data);
     }
 
     public function testIndexPage(): void
@@ -33,7 +32,7 @@ class UrlTest extends TestCase
 
     public function testShowPage(): void
     {
-        $response = $this->get(route('urls.show', $this->id));
+        $response = $this->get(route('urls.show', compact($this->id)));
         $response->assertOk();
     }
 
