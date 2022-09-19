@@ -35,18 +35,16 @@
             <th>description</th>
             <th>Дата создания</th>
         </tr>
-            @if($checksUrl)
-                @foreach($checksUrl as $checkUrl)
-                   <tr>
-                       <td>{{$checkUrl->id}}</td>
-                       <td>{{$checkUrl->status_code}}</td>
-                       <td>{{Str::limit(preg_replace('/<([^>]+)>/', PHP_EOL, $checkUrl->h1), 10, "...")}}</td>
-                       <td>{{Str::limit(preg_replace('/<([^>]+)>/', PHP_EOL, $checkUrl->title), 30, "...")}}</td>
-                       <td>{{Str::limit(preg_replace('/<([^>]+)>/', PHP_EOL, $checkUrl->description), 30, "...")}}</td>
-                       <td>{{$checkUrl->created_at}}</td>
-                   </tr>
-                @endforeach
-            @endif
+        @foreach($checksUrl as $checkUrl)
+            <tr>
+                <td>{{$checkUrl->id}}</td>
+                <td>{{$checkUrl->status_code}}</td>
+                <td>{{Str::limit(preg_replace('/<([^>]+)>/', PHP_EOL, $checkUrl->h1), 10, "...")}}</td>
+                <td>{{Str::limit(preg_replace('/<([^>]+)>/', PHP_EOL, $checkUrl->title), 30, "...")}}</td>
+                <td>{{Str::limit(preg_replace('/<([^>]+)>/', PHP_EOL, $checkUrl->description), 30, "...")}}</td>
+                <td>{{$checkUrl->created_at}}</td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection
