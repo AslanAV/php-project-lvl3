@@ -18,14 +18,8 @@
                 <tr>
                     <td>{{$url->id}}</td>
                     <td><a href="{{ route('urls.show', $url->id) }}">{{$url->name}}</a></td>
-                    @if(array_key_exists($url->id, $checksUrl))
-                    @php($checkUrl = $checksUrl[$url->id])
-                    <td>{{$checkUrl->created_at}}</td>
-                    <td>{{$checkUrl->status_code}}</td>
-                    @else
-                    <td></td>
-                    <td></td>
-                    @endif
+                    <td>{{$checksUrl[$url->id]->created_at ?? ''}}</td>
+                    <td>{{$checksUrl[$url->id]->status_code ?? ''}}</td>
                 </tr>
             @endforeach
             </tbody>
