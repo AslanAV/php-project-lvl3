@@ -31,7 +31,7 @@ class UrlTest extends TestCase
 
     public function testShowPage(): void
     {
-        $response = $this->get(route('urls.show', compact($this->id)));
+        $response = $this->get(route('urls.show', $this->id));
         $response->assertOk();
     }
 
