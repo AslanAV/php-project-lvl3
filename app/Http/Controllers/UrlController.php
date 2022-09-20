@@ -39,7 +39,9 @@ class UrlController extends Controller
         $nameUrl = $request['url.name'];
         $normalizedUrl = $this->normalizeUrl($nameUrl);
 
-        $tryGetId = $this->hasId($normalizedUrl);
+        $tryGetId = DB::table('urls')
+            ->where('name', $normalizedUrl)
+            ->value('id');
 
         if ($tryGetId) {
             flash('Страница уже существует')->success();
@@ -64,11 +66,6 @@ class UrlController extends Controller
         $host = parse_url($nameUrl, PHP_URL_HOST);
 
         return "{$scheme}://{$host}";
-    }
-
-    private function hasId(string $name): int|null
-    {
-        return DB::table('urls')->where('name', $name)->value('id');
     }
 
     public function show(int $id): View
