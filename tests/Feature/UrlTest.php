@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class UrlTest extends TestCase
 {
-    private array $body = ['url' => ['name' => 'https://www.example.com']];
+    private array $body = ['url' => ['name' => 'https://www.azsgnk.ru/']];
     private int $id;
 
     protected function setUp(): void
