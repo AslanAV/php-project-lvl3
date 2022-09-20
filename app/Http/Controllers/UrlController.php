@@ -14,6 +14,7 @@ class UrlController extends Controller
     public function index(): View
     {
         $urls = DB::table('urls')->orderBy('id')->paginate(10);
+
         $checksData = DB::table('url_checks')
             ->orderBy('url_id')
             ->latest()
@@ -21,6 +22,7 @@ class UrlController extends Controller
             ->get()
             ->keyBy('url_id');
         $checksUrl = $checksData->all();
+
         return view('urls.index', compact('urls', 'checksUrl'));
     }
 
