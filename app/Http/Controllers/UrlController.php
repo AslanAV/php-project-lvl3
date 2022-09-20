@@ -37,9 +37,9 @@ class UrlController extends Controller
         }
 
         $nameUrl = $request['url.name'];
-        $normalizeUrl = $this->normalizeUrl($nameUrl);
+        $normalizedUrl = $this->normalizeUrl($nameUrl);
 
-        $tryGetId = $this->hasId($normalizeUrl);
+        $tryGetId = $this->hasId($normalizedUrl);
 
         if ($tryGetId) {
             flash('Страница уже существует')->success();
@@ -48,7 +48,7 @@ class UrlController extends Controller
 
 
         $id = DB::table('urls')->insertGetId([
-            'name' => $normalizeUrl,
+            'name' => $normalizedUrl,
             'created_at' => Carbon::now(),
         ]);
         flash('Страница успешно добавлена')->success();
