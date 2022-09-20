@@ -16,10 +16,10 @@
             <tbody>
             @foreach($urls as $url)
                 <tr>
-                    <td>{{$url->id}}</td>
-                    <td><a href="{{ route('urls.show', $url->id) }}">{{$url->name}}</a></td>
-                    <td>{{$checksUrl[$url->id]->created_at ?? ''}}</td>
-                    <td>{{$checksUrl[$url->id]->status_code ?? ''}}</td>
+                    <td>{{ $url->id }}</td>
+                    <td><a href="{{ route('urls.show', $url->id) }}">{{ $url->name }}</a></td>
+                    <td>{{ $checksUrl[$url->id]->created_at ?? '' }}</td>
+                    <td>{{ $checksUrl[$url->id]->status_code ?? '' }}</td>
                 </tr>
             @endforeach
             </tbody>
