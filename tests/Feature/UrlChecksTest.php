@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class UrlChecksTest extends TestCase
 {
-    private string $url = '';
+    private string $url;
     private int $id;
 
     public function setUp(): void
