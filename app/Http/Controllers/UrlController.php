@@ -58,7 +58,7 @@ class UrlController extends Controller
 
     private function normalizeUrl(string $nameUrl): string
     {
-        $nameUrl = strtolower($nameUrl);
+        $nameUrl = mb_strtolower($nameUrl);
 
         $scheme = parse_url($nameUrl, PHP_URL_SCHEME);
         $host = parse_url($nameUrl, PHP_URL_HOST);
