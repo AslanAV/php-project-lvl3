@@ -21,9 +21,8 @@ class UrlController extends Controller
             ->distinct('url_id')
             ->get()
             ->keyBy('url_id');
-        $checksUrl = $checksData->all();
 
-        return view('urls.index', compact('urls', 'checksUrl'));
+        return view('urls.index', compact('urls', 'checksData'));
     }
 
 
