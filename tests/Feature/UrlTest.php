@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 class UrlTest extends TestCase
 {
-    private array $body = ['url' => ['name' => 'https://www.azsgnk.ru']];
     private int $id;
 
     protected function setUp(): void
@@ -16,7 +15,7 @@ class UrlTest extends TestCase
         parent::setUp();
 
         $data = [
-            'name' => $this->body['url']['name'],
+            'name' => 'https://www.azsgnk.ru',
             'created_at' => Carbon::now(),
         ];
 
