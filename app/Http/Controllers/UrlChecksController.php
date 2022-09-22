@@ -38,9 +38,7 @@ class UrlChecksController extends Controller
     private function getUrlName(int $id): string
     {
         $url = DB::table('urls')->find($id);
-        if (!$url) {
-            abort(404);
-        }
+        abort_unless($url, 404);
 
         return $url->name;
     }

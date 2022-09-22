@@ -48,14 +48,13 @@ class UrlController extends Controller
             return redirect()->route('urls.show', $tryGetId);
         }
 
-
         $id = DB::table('urls')->insertGetId([
             'name' => $normalizedUrl,
             'created_at' => Carbon::now(),
         ]);
+
         flash('Страница успешно добавлена')->success();
-        return redirect()
-            ->route('urls.show', $id);
+        return redirect()->route('urls.show', $id);
     }
 
     private function normalizeUrl(string $nameUrl): string
