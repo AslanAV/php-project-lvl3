@@ -1,6 +1,5 @@
 # php-project-lvl3
 
-
 [![PHP CI & heroku deploy](https://github.com/AslanAV/php-project-lvl3/actions/workflows/phpci.yaml/badge.svg)](https://github.com/AslanAV/php-project-lvl3/actions/workflows/phpci.yaml)
 [![hexlet-check](https://github.com/AslanAV/php-project-lvl3/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AslanAV/php-project-lvl3/actions/workflows/hexlet-check.yml)
 [![codecov](https://codecov.io/gh/AslanAV/php-project-lvl3/branch/main/graph/badge.svg?token=XUJ0ZB7F3L)](https://codecov.io/gh/AslanAV/php-project-lvl3)
@@ -20,11 +19,13 @@ Demo: https://php-project-lvl-3.herokuapp.com/
 ## Setup
 
 For setup update `.env.example`
+
 ```bash
 make setup
 ```
 
 ## Setup with Docker
+
 For Docker setup update `.env.example`
 
 ```bash
