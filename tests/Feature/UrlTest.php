@@ -37,9 +37,10 @@ class UrlTest extends TestCase
 
     public function testStore(): void
     {
-        $response = $this->post(route('urls.store', $this->body));
+        $data = ['url' => ['name' => 'https://www.example.ru']];
+        $response = $this->post(route('urls.store'), $data);
         $response->assertRedirect()->assertStatus(302);
         $response->assertSessionHasNoErrors();
-        $this->assertDatabaseHas('urls', $this->body['url']);
+        $this->assertDatabaseHas('urls', $data['url']);
     }
 }
