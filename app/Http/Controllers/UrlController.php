@@ -15,14 +15,14 @@ class UrlController extends Controller
     {
         $urls = DB::table('urls')->orderBy('id')->paginate(10);
 
-        $checksData = DB::table('url_checks')
+        $checksUrl = DB::table('url_checks')
             ->orderBy('url_id')
             ->latest()
             ->distinct('url_id')
             ->get()
             ->keyBy('url_id');
 
-        return view('urls.index', compact('urls', 'checksData'));
+        return view('urls.index', compact('urls', 'checksUrl'));
     }
 
 
