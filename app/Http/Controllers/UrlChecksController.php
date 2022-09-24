@@ -21,9 +21,9 @@ class UrlChecksController extends Controller
             $checkData = [
                 'url_id' => $id,
                 'status_code' => $response->status(),
-                'h1' => optional($document->first('h1'))->text() ?? '',
-                'title' => optional($document->first('title'))->text() ?? '',
-                'description' => optional($document->first('meta[name=description]'))->getAttribute('content') ?? '',
+                'h1' => optional($document->first('h1'))->text(),
+                'title' => optional($document->first('title'))->text(),
+                'description' => optional($document->first('meta[name=description]'))->getAttribute('content'),
                 'created_at' => Carbon::now(),
             ];
             DB::table('url_checks')->insert($checkData);
