@@ -39,21 +39,20 @@ class UrlController extends Controller
         $nameUrl = $request['url.name'];
         $normalizedUrl = $this->normalizeUrl($nameUrl);
 
-        $tryGetId = DB::table('urls')
+        $id = DB::table('urls')
             ->where('name', $normalizedUrl)
             ->value('id');
 
-        if ($tryGetId) {
+        if ($id) {
             flash('Страница уже существует')->success();
-            return redirect()->route('urls.show', $tryGetId);
+        } else {
+            $id = DB::table('urls')->insertGetId([
+                'name' => $normalizedUrl,
+                'created_at' => Carbon::now(),
+            ]);
+
+            flash('Страница успешно добавлена')->success();
         }
-
-        $id = DB::table('urls')->insertGetId([
-            'name' => $normalizedUrl,
-            'created_at' => Carbon::now(),
-        ]);
-
-        flash('Страница успешно добавлена')->success();
         return redirect()->route('urls.show', $id);
     }
 
