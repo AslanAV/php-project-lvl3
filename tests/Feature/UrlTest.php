@@ -10,6 +10,18 @@ class UrlTest extends TestCase
 {
     private int $id;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $data = [
+            'name' => 'https://www.azsgnk.ru',
+            'created_at' => Carbon::now(),
+        ];
+
+        $this->id = DB::table('urls')->insertGetId($data);
+    }
+
     public function testIndexPage(): void
     {
         $response = $this->get(route('urls.index'));
@@ -29,17 +41,5 @@ class UrlTest extends TestCase
         $response->assertRedirect()->assertStatus(302);
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('urls', $data['url']);
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $data = [
-            'name' => 'https://www.azsgnk.ru',
-            'created_at' => Carbon::now(),
-        ];
-
-        $this->id = DB::table('urls')->insertGetId($data);
     }
 }
